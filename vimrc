@@ -114,7 +114,7 @@ set list listchars=tab:\ \ ,trail:·
 
 
 "============================================================
-" maps, remaps, etc
+" maps
 "============================================================
 
 " System default for mappings is now the "," character
@@ -126,6 +126,15 @@ map Q gq
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
+
+" Underline the current line with '=', '-', or '~'
+nmap <silent> ,u= :t.\|s/./=/g\|:nohls<cr>
+nmap <silent> ,u- :t.\|s/./-/g\|:nohls<cr>
+nmap <silent> ,u~ :t.\|s/./\\~/g\|:nohls<cr>
+
+" Shrink the current window to fit the number of lines in the buffer.  Useful
+" for those buffers that are only a few lines
+nmap <silent> ,sw :execute ":resize " . line('$')<cr>
 
 " run ctags and output on new vsplit
 map  :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
@@ -147,7 +156,7 @@ nmap <silent> ,ww :set invwrap<CR>:set wrap?<CR>
 " period between the ',' key and the 'd' key.  If the 'd' key isn't pressed
 " before the timeout expires, one of two things happens: The ',' command is
 " executed if there is one (which there isn't) or the command aborts
-set timeoutlen=500
+set timeoutlen=1000
 
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
@@ -246,4 +255,13 @@ let NERDTreeShowBookmarks=1
 
 " Don't display these kinds of files
 " let NERDTreeIgnore=[ '\.obj$', '\.bak$']
+
+"-----------------------------------------------------------------------------
+" CtrlP Settings
+"-----------------------------------------------------------------------------
+map ,fb :CtrlPBuffer<cr>
+map ,ff :CtrlP .<cr>
+map ,fr :CtrlP<cr>
+map ,fm :CtrlPMixed<cr>
+
 
