@@ -131,7 +131,7 @@ inoremap <C-U> <C-G>u<C-U>
 map  :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 " allow F5 to toggle paste mode
-set pastetoggle=<f5>
+set pastetoggle=<f2>
 
 " set text wrapping toggles
 nmap <silent> ,ww :set invwrap<CR>:set wrap?<CR>
