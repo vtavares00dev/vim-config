@@ -44,6 +44,13 @@ filetype indent on
 " tell VIM to always put a status line in, even in single window
 set laststatus=2
 
+" Don't update the display while executing macros
+set lazyredraw
+
+" set wildmenu for tab completion options on command line
+set wildmenu
+set wildmode=list:longest,full
+
 " hide buffers in the background instead of closing them
 set hidden
 
@@ -128,13 +135,13 @@ map Q gq
 inoremap <C-U> <C-G>u<C-U>
 
 " Underline the current line with '=', '-', or '~'
-nmap <silent> ,u= :t.\|s/./=/g\|:nohls<cr>
-nmap <silent> ,u- :t.\|s/./-/g\|:nohls<cr>
-nmap <silent> ,u~ :t.\|s/./\\~/g\|:nohls<cr>
+nmap <silent> <Leader>u= :t.\|s/./=/g\|:nohls<cr>
+nmap <silent> <Leader>u- :t.\|s/./-/g\|:nohls<cr>
+nmap <silent> <Leader>u~ :t.\|s/./\\~/g\|:nohls<cr>
 
 " Shrink the current window to fit the number of lines in the buffer.  Useful
 " for those buffers that are only a few lines
-nmap <silent> ,sw :execute ":resize " . line('$')<cr>
+nmap <silent> <Leader>sw :execute ":resize " . line('$')<cr>
 
 " run ctags and output on new vsplit
 map  :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
@@ -143,7 +150,7 @@ map  :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 set pastetoggle=<f2>
 
 " set text wrapping toggles
-nmap <silent> ,ww :set invwrap<CR>:set wrap?<CR>
+nmap <silent> <Leader>ww :set invwrap<CR>:set wrap?<CR>
 
 
 "============================================================
@@ -166,6 +173,9 @@ if !exists(":DiffOrig")
 		  \ | wincmd p | diffthis
 endif
 
+" Launch the Mark app to view markdown file being edited
+command! Markdown !mark %
+map <Leader>md :Markdown<CR>
 
 "============================================================
 " text replacements
@@ -236,10 +246,10 @@ let g:airline_symbols.linenr = ''
 "------------------------------------------------------------
 " vim-fugitive
 "------------------------------------------------------------
-nmap ,gs :Gstatus<cr>
-nmap ,ge :Gedit<cr>
-nmap ,gw :Gwrite<cr>
-nmap ,gr :Gread<cr>
+nmap <Leader>gs :Gstatus<cr>
+nmap <Leader>ge :Gedit<cr>
+nmap <Leader>gw :Gwrite<cr>
+nmap <Leader>gr :Gread<cr>
 
 "-----------------------------------------------------------------------------
 " NERD Tree Plugin Settings
@@ -250,6 +260,9 @@ nmap <F7> :NERDTreeToggle<CR>
 " Close the NERD Tree with Shift-F7
 nmap <S-F7> :NERDTreeClose<CR>
 
+" move NERDTree window to the right
+let g:NERDTreeWinPos = "right"
+
 " Show the bookmarks table on startup
 let NERDTreeShowBookmarks=1
 
@@ -259,9 +272,9 @@ let NERDTreeShowBookmarks=1
 "-----------------------------------------------------------------------------
 " CtrlP Settings
 "-----------------------------------------------------------------------------
-map ,fb :CtrlPBuffer<cr>
-map ,ff :CtrlP .<cr>
-map ,fr :CtrlP<cr>
-map ,fm :CtrlPMixed<cr>
+map <Leader>fb :CtrlPBuffer<cr>
+map <Leader>ff :CtrlP .<cr>
+map <Leader>fr :CtrlP<cr>
+map <Leader>fm :CtrlPMixed<cr>
 
 

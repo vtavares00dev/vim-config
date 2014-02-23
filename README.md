@@ -8,6 +8,6 @@ To install:
 * `git clone https://github.com/vtavares00dev/vim-config.git ~/.vim`
 * `ln ~/.vim/vimrc ~/.vimrc`
 * to install all bundles (using vundle): `vim +BundleInstall +qall`
+* To update, do `vim +BundleUpdate +qall`
 * start vim and profit!
 
-To update, do `vim +BundleUpdate +qall`
