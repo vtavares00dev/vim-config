@@ -297,3 +297,8 @@ map <Leader>fr :CtrlP<cr>
 map <Leader>fm :CtrlPMixed<cr>
 
 
+"-----------------------------------------------------------------------------
+" YouCompleteMe settings
+"-----------------------------------------------------------------------------
+" only enable for c or c++ files
+let g:ycm_filetype_whitelist = { 'c': 1, 'cpp': 1}
