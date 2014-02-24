@@ -27,6 +27,7 @@ Bundle 'bling/vim-airline'
 Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdtree'
 Bundle 'kien/ctrlp.vim'
+Bundle 'Valloric/YouCompleteMe'
 
 " =============== Vundle Initialization ===============
 " This loads all the plugins specified in ~/.vim/vundle.vim
@@ -72,7 +73,7 @@ set ruler
 
 " When the page starts to scroll, keep the cursor 8 lines from the top and 8
 " lines from the bottom
-set scrolloff=8
+set scrolloff=4
 
 " Add ignorance of whitespace to diff
 set diffopt+=iwhite
@@ -105,7 +106,7 @@ set smartindent
 " Display tabs and trailing spaces visually
 set list listchars=tab:\ \ ,trail:·
 
-":highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
+:highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
 
 
 "------------------------------------------------------------
@@ -138,12 +139,19 @@ nmap <silent> <Leader>u= :t.\|s/./=/g\|:nohls<cr>
 nmap <silent> <Leader>u- :t.\|s/./-/g\|:nohls<cr>
 nmap <silent> <Leader>u~ :t.\|s/./\\~/g\|:nohls<cr>
 
+" window movement
+nmap <silent> <Leader>j <C-W>j
+nmap <silent> <Leader>k <C-W>k
+nmap <silent> <Leader>h <C-W>h
+nmap <silent> <Leader>l <C-W>l
+nmap <silent> <Leader>, <C-W><C-W>
+
 " Shrink the current window to fit the number of lines in the buffer.  Useful
 " for those buffers that are only a few lines
 nmap <silent> <Leader>sw :execute ":resize " . line('$')<cr>
 
 " run ctags and output on new vsplit
-map  :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+" map  :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 " allow F5 to toggle paste mode
 set pastetoggle=<f2>
@@ -249,6 +257,7 @@ nmap <Leader>gs :Gstatus<cr>
 nmap <Leader>ge :Gedit<cr>
 nmap <Leader>gw :Gwrite<cr>
 nmap <Leader>gr :Gread<cr>
+nmap <Leader>gl :Glog<cr>
 
 "-----------------------------------------------------------------------------
 " NERD Tree Plugin Settings
@@ -262,6 +271,12 @@ nmap <S-F7> :NERDTreeClose<CR>
 " move NERDTree window to the right
 let g:NERDTreeWinPos = "right"
 
+" make window decent size 
+let g:NERDTreeWinSize = 48
+
+" close NERDTree window when opening a file
+let g:NERDTreeQuitOnOpen = 1
+
 " Show the bookmarks table on startup
 let NERDTreeShowBookmarks=1
 
@@ -271,6 +286,11 @@ let NERDTreeShowBookmarks=1
 "-----------------------------------------------------------------------------
 " CtrlP Settings
 "-----------------------------------------------------------------------------
+" show windows from top
+let g:ctrlp_match_window = 'top'
+" jump to file if already open instead of opening a new instance
+let g:ctrlp_switch_buffer = 'Et'
+
 map <Leader>fb :CtrlPBuffer<cr>
 map <Leader>ff :CtrlP .<cr>
 map <Leader>fr :CtrlP<cr>
