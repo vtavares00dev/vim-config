@@ -130,14 +130,20 @@ let mapleader = ","
 " Don't use Ex mode, use Q for formatting
 map Q gq
 
+" switch to previous buffer
+nmap <silent> <Leader>bb :b#<cr>
+
+" redo
+nmap <silent> <Leader>u <C-R>
+
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
 
 " Underline the current line with '=', '-', or '~'
-nmap <silent> <Leader>u= :t.\|s/./=/g\|:nohls<cr>
-nmap <silent> <Leader>u- :t.\|s/./-/g\|:nohls<cr>
-nmap <silent> <Leader>u~ :t.\|s/./\\~/g\|:nohls<cr>
+nmap <silent> <Leader>== :t.\|s/./=/g\|:nohls<cr>
+nmap <silent> <Leader>-- :t.\|s/./-/g\|:nohls<cr>
+nmap <silent> <Leader>~~ :t.\|s/./\\~/g\|:nohls<cr>
 
 " window movement
 nmap <silent> <Leader>j <C-W>j
@@ -153,7 +159,7 @@ nmap <silent> <Leader>sw :execute ":resize " . line('$')<cr>
 " run ctags and output on new vsplit
 " map  :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
-" allow F5 to toggle paste mode
+" allow F2 to toggle paste mode
 set pastetoggle=<f2>
 
 " set text wrapping toggles
@@ -170,7 +176,7 @@ nmap <silent> <Leader>ww :set invwrap<CR>:set wrap?<CR>
 " period between the ',' key and the 'd' key.  If the 'd' key isn't pressed
 " before the timeout expires, one of two things happens: The ',' command is
 " executed if there is one (which there isn't) or the command aborts
-set timeoutlen=1000
+set timeoutlen=500
 
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
