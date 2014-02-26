@@ -23,11 +23,13 @@ Bundle 'gmarik/vundle'
 " My Bundles
 "------------------------------------------------------------
 Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-surround'
 Bundle 'bling/vim-airline'
 Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdtree'
 Bundle 'kien/ctrlp.vim'
 Bundle 'Valloric/YouCompleteMe'
+Bundle 'SirVer/ultisnips'
 
 " =============== Vundle Initialization ===============
 " This loads all the plugins specified in ~/.vim/vundle.vim
@@ -150,7 +152,7 @@ nmap <silent> <Leader>j <C-W>j
 nmap <silent> <Leader>k <C-W>k
 nmap <silent> <Leader>h <C-W>h
 nmap <silent> <Leader>l <C-W>l
-nmap <silent> <Leader>, <C-W><C-W>
+nmap <silent> <Leader>w <C-W><C-W>
 
 " Shrink the current window to fit the number of lines in the buffer.  Useful
 " for those buffers that are only a few lines
@@ -307,6 +309,8 @@ map <Leader>fm :CtrlPMixed<cr>
 " YouCompleteMe settings
 "-----------------------------------------------------------------------------
 " only enable for c or c++ files
+"let g:ycm_key_list_select_completion = ['<C-TAB>', '<Down>']
+"let g:ycm_key_list_previous_completion = ['<C-S-TAB>', '<Up>']
 let g:ycm_key_detailed_diagnostics = '<Leader>d'
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
 let g:ycm_filetype_whitelist = {'c': 1, 'cpp': 1, 'h': 1, 'CC': 1, 'py': 1}
@@ -319,4 +323,11 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_enable_signs = 1
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '⚠'
+
+"-----------------------------------------------------------------------------
+" UltiSnips
+"-----------------------------------------------------------------------------
+let g:UltiSnipsExpandTrigger="<f9>"
+let g:UltiSnipsJumpForwardTrigger="<f9>"
+let g:UltiSnipsJumpBackwardTrigger="<s-f9>"
 
