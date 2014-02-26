@@ -313,7 +313,7 @@ map <Leader>fm :CtrlPMixed<cr>
 "let g:ycm_key_list_previous_completion = ['<C-S-TAB>', '<Up>']
 let g:ycm_key_detailed_diagnostics = '<Leader>d'
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
-g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_filetype_whitelist = {'c': 1, 'cpp': 1, 'h': 1, 'CC': 1, 'py': 1}
 
 "-----------------------------------------------------------------------------
