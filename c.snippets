@@ -51,7 +51,8 @@ $0
 endsnippet
 
 snippet main "main(void) (main)"
-int main(void)
+int
+main(void)
 {
 	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
 	return 0;
@@ -59,7 +60,8 @@ int main(void)
 endsnippet
 
 snippet mainargs "main( int argc, char *argv[]) (mainargs)"
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
 	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
 	return 0;
@@ -160,7 +162,8 @@ struct ${1:`!p snip.rv = (snip.basename or "name") + "_t"`} {
 endsnippet
 
 snippet fun "function" b
-${1:void} ${2:function_name}(${3}) 
+${1:void}
+${2:function_name}(${3}) 
 {	
 	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
 }
