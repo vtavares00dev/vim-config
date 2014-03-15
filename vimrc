@@ -73,7 +73,7 @@ set number
 " show the cursor position all the time
 set ruler		
 
-" When the page starts to scroll, keep the cursor 8 lines from the top and 8
+" When the page starts to scroll, keep the cursor 4 lines from the top and 4
 " lines from the bottom
 set scrolloff=4
 
