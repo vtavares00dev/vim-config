@@ -167,6 +167,9 @@ set pastetoggle=<f2>
 " set text wrapping toggles
 nmap <silent> <Leader>ww :set invwrap<CR>:set wrap?<CR>
 
+" Launch the Mark app to view markdown file being edited
+command! Markdown !mark %
+map <Leader>md :Markdown<CR>
 
 "============================================================
 " functions, commands, macros, etc
@@ -188,9 +191,6 @@ if !exists(":DiffOrig")
 		  \ | wincmd p | diffthis
 endif
 
-" Launch the Mark app to view markdown file being edited
-command! Markdown !mark %
-map <Leader>md :Markdown<CR>
 
 "============================================================
 " text replacements
