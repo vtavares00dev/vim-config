@@ -1,6 +1,9 @@
 "
 " Victor Tavares's Vim Configuration
 "
+" inspired by many other examples, including:
+" https://github.com/sjl/dotfiles/
+" https://github.com/henrik/dotfiles/
 
 "------------------------------------------------------------
 " Global
@@ -13,30 +16,35 @@ set nocompatible
 " Vundle setup
 "------------------------------------------------------------
 filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim/
+call vundle#begin()
 
 " Let Vundle manage Vundle
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 
 "------------------------------------------------------------
 " My Bundles
 "------------------------------------------------------------
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-surround'
-Bundle 'bling/vim-airline'
-"Bundle 'scrooloose/syntastic'
-Bundle 'scrooloose/nerdtree'
-Bundle 'kien/ctrlp.vim'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'SirVer/ultisnips'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-surround'
+Plugin 'tommcdo/vim-exchange'
+Plugin 'bling/vim-airline'
+Plugin 'scrooloose/nerdtree'
+Plugin 'kien/ctrlp.vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+Plugin 'majutsushi/tagbar'
+Plugin 'sjl/gundo.vim'
+Plugin 'sjl/vitality.vim'
+Plugin 'vim-scripts/scratch.vim'
+Plugin 't9md/vim-choosewin'
 
 " =============== Vundle Initialization ===============
-" This loads all the plugins specified in ~/.vim/vundle.vim
-" Use Vundle plugin to manage all other plugins
- if filereadable(expand("~/.vim/vundles.vim"))
-   source ~/.vim/vundles.vim
- endif
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
 
 " filetype settings
 filetype on
@@ -60,18 +68,18 @@ set hidden
 set backspace=indent,eol,start
 
 " No backup files
-set nobackup	
+set nobackup
 set noswapfile
 set nowb
 
 " lots of history
-set history=100	
+set history=100
 
 " turn on line numbering
 set number
 
 " show the cursor position all the time
-set ruler		
+set ruler
 
 " When the page starts to scroll, keep the cursor 4 lines from the top and 4
 " lines from the bottom
@@ -83,13 +91,16 @@ set diffopt+=iwhite
 " Add the unnamed register to the clipboard
 set clipboard+=unnamed
 
+" allow F2 to toggle paste mode
+set pastetoggle=<F2>
+
 " Automatically read a file that has changed on disk
 " set autoread
 
-set showcmd		    " display incomplete commands
-set showmode		" show current mode in status line
-set visualbell		" no sounds
-set incsearch		" do incremental searching
+set showcmd         " display incomplete commands
+set showmode        " show current mode in status line
+set visualbell      " no sounds
+set incsearch       " do incremental searching
 set wrapscan        " set the search scan to wrap lines
 
 " make the 'cw' and like commands put a $ at the end instead
@@ -102,8 +113,10 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 set expandtab
-set autoindent		" always set autoindenting on
+set autoindent      " always set autoindenting on
 set smartindent
+set textwidth=80
+set colorcolumn=+1  " highlight column 81
 
 " Display tabs and trailing spaces visually
 set list listchars=tab:\ \ ,trail:·
@@ -116,9 +129,10 @@ set list listchars=tab:\ \ ,trail:·
 " *** disabled ***
 "
 " Keep undo history across sessions, by storing in file.
-" silent !mkdir ~/.vim/backups > /dev/null 2>&1
-" set undodir=~/.vim/backups
-" set undofile
+silent !mkdir ~/.vim/backups > /dev/null 2>&1
+set undodir=~/.vim/backups
+set undolevels=100
+set undofile
 "------------------------------------------------------------
 
 
@@ -126,14 +140,15 @@ set list listchars=tab:\ \ ,trail:·
 " maps
 "============================================================
 
-" System default for mappings is now the "," character
-let mapleader = ","
+" System default for mappings is now the space character
+let mapleader = "\<Space>"
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
 
-" switch to previous buffer
-nmap <silent> <Leader>bb :b#<cr>
+" cycle through buffers with tab and shift-tab
+nnoremap <TAB> :bnext<CR>
+nnoremap <S-TAB> :bprevious<CR>
 
 " redo
 nmap <silent> <Leader>u <C-R>
@@ -161,15 +176,34 @@ nmap <silent> <Leader>sw :execute ":resize " . line('$')<cr>
 " run ctags and output on new vsplit
 " map  :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
-" allow F2 to toggle paste mode
-set pastetoggle=<f2>
-
 " set text wrapping toggles
 nmap <silent> <Leader>ww :set invwrap<CR>:set wrap?<CR>
 
 " Launch the Mark app to view markdown file being edited
 command! Markdown !mark %
 map <Leader>md :Markdown<CR>
+
+" toggle dark or light background
+map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark")<CR>
+
+" turn of diff
+map <Leader>D :diffoff!<CR>
+
+" Use c-\\ to do c-] but open it in a new split.
+nnoremap <C-\><C-\> <C-w>v<C-]>zvzz
+
+" Keep search matches in the middle of the window.
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" Same when jumping around
+nnoremap g; g;zz
+nnoremap g, g,zz
+nnoremap <C-o> <C-o>zz
+
+" Shift + left/right to switch tabs.
+noremap <S-Left> :tabp<CR>
+noremap <S-Right> :tabn<CR>
 
 "============================================================
 " functions, commands, macros, etc
@@ -178,24 +212,55 @@ map <Leader>md :Markdown<CR>
 " This is the timeout used while waiting for user input on a multi-keyed macro
 " or while just sitting and waiting for another key to be pressed measured
 " in milliseconds - i.e. for the ',d' command, there is a 'timeoutlen' wait
-" period between the ',' key and the 'd' key.  If the 'd' key isn't pressed
-" before the timeout expires, one of two things happens: The ',' command is
-" executed if there is one (which there isn't) or the command aborts
+" period between the '<space>' key and 'd' key.  If the 'd' key isn't pressed
+" before the timeout expires, one of two things happens: The '<space>' command
+" is executed if there is one (which there isn't) or the command aborts
 set timeoutlen=500
 
-" Convenient command to see the difference between the current buffer and the
-" file it was loaded from, thus the changes you made.
-" Only define it when not defined already.
-if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-		  \ | wincmd p | diffthis
-endif
+
+" Jump to last cursor position when file was opened
+augroup vimrcEx
+    autocmd!
+    autocmd BufReadPost *
+      \ if line("'\"") > 0 && line("'\"") <= line("$") |
+      \   exe "normal g`\"" |
+      \ endif
+augroup END
+
+
+" Exclude git commit messages from jump to last position
+augroup gitCommitEditMsg
+  autocmd!
+  autocmd BufReadPost *
+    \ if @% == '.git/COMMIT_EDITMSG' |
+    \   exe "normal gg" |
+    \ endif
+augroup END
+
+" remove trailing whitespace in whole file
+func! DeleteTrailingWS()
+  exe "normal mz"
+  %s/\s\+$//ge
+  exe "normal `z"
+endfunc
+
+" map trailing whitespace deletion to <Leader>ws
+noremap <Leader>ws :call DeleteTrailingWS()<CR>
 
 
 "============================================================
 " text replacements
 "============================================================
-iab vmt     Victor Tavares
+iabbrev vmt Victor Tavares
+
+"iso 8601 date and time format
+iabbrev idate <C-r>=strftime("%Y-%m-%d %H:%M:%S %z")<CR>
+
+" rfc 2822 date format
+iabbrev rdate <C-r>=strftime("%d %b %Y")<CR>
+
+" rfc 2822 date and time
+iabbrev rtdate <C-r>=strftime("%a, %d %b %Y %T %z")<CR>
 
 
 "============================================================
@@ -216,17 +281,15 @@ if &t_Co > 2 || has("gui_running")
   set synmaxcol=2048
   set background=dark
   colorscheme solarized
+  set guifont=Meslo\ LG\ M\ DZ\ Regular\ for\ Powerline:h12
 "  set hlsearch
 endif
 
 
-"-----------------------------------------------------------------------------
-" GPG Stuff
-"-----------------------------------------------------------------------------
-if has("mac")
-    let g:GPGExecutable = "gpg2"
-    let g:GPGUseAgent = 0
-endif
+"============================================================
+" Quick Editing in new window
+"============================================================
+noremap <Leader>ev :vsplit $MYVIMRC<CR>     " open up .vimrc
 
 
 "============================================================
@@ -258,14 +321,22 @@ let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 
+
 "------------------------------------------------------------
 " vim-fugitive
 "------------------------------------------------------------
-nmap <Leader>gs :Gstatus<cr>
+nmap <Leader>ga :Gadd<cr>
+nmap <Leader>gb :Gblame<cr>
+nmap <Leader>gci :Gcommit<cr>
+nmap <Leader>gco :Gcheckout<cr>
+nmap <Leader>gd :Gdiff<cr>
 nmap <Leader>ge :Gedit<cr>
-nmap <Leader>gw :Gwrite<cr>
-nmap <Leader>gr :Gread<cr>
 nmap <Leader>gl :Glog<cr>
+nmap <Leader>gm :Gmove<cr>
+nmap <Leader>gr :Gremove<cr>
+nmap <Leader>gs :Gstatus<cr>
+nmap <Leader>gw :Gwrite<cr>
+
 
 "-----------------------------------------------------------------------------
 " NERD Tree Plugin Settings
@@ -279,17 +350,18 @@ nmap <S-F7> :NERDTreeClose<CR>
 " move NERDTree window to the right
 let g:NERDTreeWinPos = "right"
 
-" make window decent size 
+" make window decent size
 let g:NERDTreeWinSize = 48
 
 " close NERDTree window when opening a file
 let g:NERDTreeQuitOnOpen = 1
 
 " Show the bookmarks table on startup
-let NERDTreeShowBookmarks=1
+let g:NERDTreeShowBookmarks=1
 
 " Don't display these kinds of files
 " let NERDTreeIgnore=[ '\.obj$', '\.bak$']
+
 
 "-----------------------------------------------------------------------------
 " CtrlP Settings
@@ -312,23 +384,143 @@ map <Leader>fm :CtrlPMixed<cr>
 "let g:ycm_key_list_select_completion = ['<C-TAB>', '<Down>']
 "let g:ycm_key_list_previous_completion = ['<C-S-TAB>', '<Up>']
 let g:ycm_key_detailed_diagnostics = '<Leader>d'
-let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_filetype_whitelist = {'c': 1, 'cpp': 1, 'h': 1, 'CC': 1, 'py': 1}
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_use_ultisnips_completer = 1
+"let g:ycm_key_list_select_completion=[]
+"let g:ycm_key_list_previous_completion=[]
 
-"-----------------------------------------------------------------------------
-" Syntastic
-"-----------------------------------------------------------------------------
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_enable_signs = 1
-"let g:syntastic_error_symbol = '✗'
-"let g:syntastic_warning_symbol = '⚠'
 
 "-----------------------------------------------------------------------------
 " UltiSnips
 "-----------------------------------------------------------------------------
-let g:UltiSnipsExpandTrigger="<f9>"
-let g:UltiSnipsJumpForwardTrigger="<f9>"
-let g:UltiSnipsJumpBackwardTrigger="<s-f9>"
+let g:UltiSnipsExpandTrigger="<F9>"
+let g:UltiSnipsJumpForwardTrigger="<F9>"
+let g:UltiSnipsJumpBackwardTrigger="<S-F9>"
 
+
+"-----------------------------------------------------------------------------
+" Tagbar settings
+"-----------------------------------------------------------------------------
+nmap <F8> :TagbarToggle<CR>
+let g:tagbar_autofocus = 1
+" enable tagbar in vim-airline status bar
+let g:airline#extensions#tagbar#enabled = 1
+
+
+"-----------------------------------------------------------------------------
+" Gundo settings
+"-----------------------------------------------------------------------------
+nnoremap <F4> :GundoToggle<CR>
+let g:gundo_preview_bottom=1
+
+"-----------------------------------------------------------------------------
+" Vitality settings
+"-----------------------------------------------------------------------------
+let g:vitality_fix_cursor = 1
+let g:vitality_fix_focus = 0
+let g:vitality_always_assume_iterm = 1
+
+"-----------------------------------------------------------------------------
+" Scratch settings
+"-----------------------------------------------------------------------------
+command! ScratchToggle call ScratchToggle()
+
+function! ScratchToggle()
+    if exists("w:is_scratch_window")
+        unlet w:is_scratch_window
+        exec "q"
+    else
+        exec "normal! :Sscratch\<cr>\<C-W>L"
+        let w:is_scratch_window = 1
+    endif
+endfunction
+
+nnoremap <silent> <Leader><TAB> :ScratchToggle<cr>
+
+
+"-----------------------------------------------------------------------------
+" Choosewin settings
+"-----------------------------------------------------------------------------
+nmap <F10> <Plug>(choosewin)
+nmap <S-F10> <plug>(choosewin-swap)
+let g:choosewin_overlay_enable=1
+let g:choosewin_return_on_single_win=1  " return immediately when only 1 win
+
+
+"-----------------------------------------------------------------------------
+" CScope Settings (see http://cscope.sourceforge.net/cscope_maps.vim)
+"-----------------------------------------------------------------------------
+" This tests to see if vim was configured with the '--enable-cscope' option
+" when it was compiled.  If it wasn't, time to recompile vim...
+
+if has("cscope")
+
+    """"""""""""" Standard cscope/vim boilerplate
+
+    " use both cscope and ctag for 'ctrl-]', ':ta', and 'vim -t'
+    set cscopetag
+
+    " check cscope for definition of a symbol before checking ctags: set to 1
+    " if you want the reverse search order.
+    set csto=0
+
+    " add any cscope database in current directory
+    if filereadable("cscope.out")
+        cs add cscope.out
+    " else add the database pointed to by environment variable
+    elseif $CSCOPE_DB != ""
+        cs add $CSCOPE_DB
+    endif
+
+    " show msg when any other cscope db added
+    set cscopeverbose
+
+    """"""""""""" cscope/vim key mappings
+    "
+    " The following maps all invoke one of the following cscope search types:
+    "
+    "   's'   symbol: find all references to the token under cursor
+    "   'g'   global: find global definition(s) of the token under cursor
+    "   'c'   calls:  find all calls to the function name under cursor
+    "   't'   text:   find all instances of the text under cursor
+    "   'e'   egrep:  egrep search for the word under cursor
+    "   'f'   file:   open the filename under cursor
+    "   'i'   includes: find files that include the filename under cursor
+    "   'd'   called: find functions that function under cursor calls
+
+    " Below are two sets of the maps: one set that just jumps to your
+    " search result, one that splits the existing vim window vertically and
+    " diplays your search result in the new window.
+
+    " To do the first type of search, hit 'CTRL-\', followed by one of the
+    " cscope search types above (s,g,c,t,e,f,i,d).  The result of your cscope
+    " search will be displayed in the current window.  You can use CTRL-T to
+    " go back to where you were before the search.
+
+    nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+    nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+    nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+
+    " Using 'CTRL-spacebar' (intepreted as CTRL-@ by vim) then a search type
+    " makes the vim window split vertically, with search result displayed in
+    " the new window.
+
+    nmap <C-@>s :vert scs find s <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-@>g :vert scs find g <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-@>c :vert scs find c <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-@>t :vert scs find t <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-@>e :vert scs find e <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-@>f :vert scs find f <C-R>=expand("<cfile>")<CR><CR>
+    nmap <C-@>i :vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+    nmap <C-@>d :vert scs find d <C-R>=expand("<cword>")<CR><CR>
+
+endif " cscope
