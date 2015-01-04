@@ -8,5 +8,8 @@ To install from scratch:
 * install vundle: 
   `git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim`
 * install/update all bundles (using vundle): `vim +PluginInstall! +qall`
+* configure YouCompleteMe:
+    - `cd ~/.vim/bundle/YouCompleteMe`
+    - `./install.sh --clang-completer`
 * start vim and profit!
 
