@@ -1,10 +1,12 @@
 # Victor Tavares' Vim Configuration
 
-To install:
+To install from scratch:
 
 * remove or backup your `~/.vimrc` file and `~/.vim` directory
 * `git clone https://github.com/vtavares00dev/vim-config.git ~/.vim`
 * `ln ~/.vim/vimrc ~/.vimrc`
-* to install/update all bundles (using vundle): `vim +PluginInstall! +qall`
+* install vundle: 
+  `git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim`
+* install/update all bundles (using vundle): `vim +PluginInstall! +qall`
 * start vim and profit!
 
