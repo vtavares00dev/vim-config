@@ -25,20 +25,20 @@ Plugin 'gmarik/vundle'
 "------------------------------------------------------------
 " My Bundles
 "------------------------------------------------------------
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
-Plugin 'tommcdo/vim-exchange'
-Plugin 'bling/vim-airline'
-Plugin 'scrooloose/nerdtree'
-Plugin 'kien/ctrlp.vim'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'SirVer/ultisnips'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'bling/vim-airline'
 Plugin 'honza/vim-snippets'
+Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
+Plugin 'scrooloose/nerdtree'
 Plugin 'sjl/gundo.vim'
 Plugin 'sjl/vitality.vim'
-Plugin 'vim-scripts/scratch.vim'
 Plugin 't9md/vim-choosewin'
+Plugin 'tommcdo/vim-exchange'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-surround'
+Plugin 'vim-scripts/scratch.vim'
 
 " =============== Vundle Initialization ===============
 " All of your Plugins must be added before the following line
@@ -115,6 +115,7 @@ set tabstop=4
 set expandtab
 set autoindent      " always set autoindenting on
 set smartindent
+
 set textwidth=80
 set colorcolumn=+1  " highlight column 81
 
@@ -126,7 +127,6 @@ set list listchars=tab:\ \ ,trail:·
 
 "------------------------------------------------------------
 " persistent undo
-" *** disabled ***
 "
 " Keep undo history across sessions, by storing in file.
 silent !mkdir ~/.vim/backups > /dev/null 2>&1
@@ -151,33 +151,36 @@ nnoremap <TAB> :bnext<CR>
 nnoremap <S-TAB> :bprevious<CR>
 
 " redo
-nmap <silent> <Leader>u <C-R>
+nmap <Leader>u <C-R>
+
+" Kill buffer
+nnoremap K :bd<cr>
 
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
 
 " Underline the current line with '=', '-', or '~'
-nmap <silent> <Leader>== :t.\|s/./=/g\|:nohls<cr>
-nmap <silent> <Leader>-- :t.\|s/./-/g\|:nohls<cr>
-nmap <silent> <Leader>~~ :t.\|s/./\\~/g\|:nohls<cr>
+nmap <Leader>== :t.\|s/./=/g\|:nohls<cr>
+nmap <Leader>-- :t.\|s/./-/g\|:nohls<cr>
+nmap <Leader>~~ :t.\|s/./\\~/g\|:nohls<cr>
 
 " window movement
-nmap <silent> <Leader>j <C-W>j
-nmap <silent> <Leader>k <C-W>k
-nmap <silent> <Leader>h <C-W>h
-nmap <silent> <Leader>l <C-W>l
-nmap <silent> <Leader>w <C-W><C-W>
+nmap <Leader>j <C-W>j
+nmap <Leader>k <C-W>k
+nmap <Leader>h <C-W>h
+nmap <Leader>l <C-W>l
+nmap <Leader>w <C-W><C-W>
 
 " Shrink the current window to fit the number of lines in the buffer.  Useful
 " for those buffers that are only a few lines
-nmap <silent> <Leader>sw :execute ":resize " . line('$')<cr>
+nmap <Leader>sw :execute ":resize " . line('$')<cr>
 
 " run ctags and output on new vsplit
 " map  :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 " set text wrapping toggles
-nmap <silent> <Leader>ww :set invwrap<CR>:set wrap?<CR>
+nmap <Leader>ww :set invwrap<CR>:set wrap?<CR>
 
 " Launch the Mark app to view markdown file being edited
 command! Markdown !mark %
@@ -217,6 +220,8 @@ noremap <S-Right> :tabn<CR>
 " is executed if there is one (which there isn't) or the command aborts
 set timeoutlen=500
 
+" Resize splits when the window is resized
+au VimResized * :wincmd =
 
 " Jump to last cursor position when file was opened
 augroup vimrcEx
@@ -236,6 +241,7 @@ augroup gitCommitEditMsg
     \   exe "normal gg" |
     \ endif
 augroup END
+
 
 " remove trailing whitespace in whole file
 func! DeleteTrailingWS()
@@ -380,9 +386,7 @@ map <Leader>fm :CtrlPMixed<cr>
 "-----------------------------------------------------------------------------
 " YouCompleteMe settings
 "-----------------------------------------------------------------------------
-" only enable for c or c++ files
-"let g:ycm_key_list_select_completion = ['<C-TAB>', '<Down>']
-"let g:ycm_key_list_previous_completion = ['<C-S-TAB>', '<Up>']
+" only enable for python, c or c++ files
 let g:ycm_key_detailed_diagnostics = '<Leader>d'
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_collect_identifiers_from_tags_files = 1
@@ -390,8 +394,6 @@ let g:ycm_filetype_whitelist = {'c': 1, 'cpp': 1, 'h': 1, 'CC': 1, 'py': 1}
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_use_ultisnips_completer = 1
-"let g:ycm_key_list_select_completion=[]
-"let g:ycm_key_list_previous_completion=[]
 
 
 "-----------------------------------------------------------------------------
@@ -400,6 +402,7 @@ let g:ycm_use_ultisnips_completer = 1
 let g:UltiSnipsExpandTrigger="<F9>"
 let g:UltiSnipsJumpForwardTrigger="<F9>"
 let g:UltiSnipsJumpBackwardTrigger="<S-F9>"
+let g:UltiSnipsSnippetsDir = "~/.vim/UltiSnips"
 
 
 "-----------------------------------------------------------------------------
@@ -407,8 +410,8 @@ let g:UltiSnipsJumpBackwardTrigger="<S-F9>"
 "-----------------------------------------------------------------------------
 nmap <F8> :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
-" enable tagbar in vim-airline status bar
-let g:airline#extensions#tagbar#enabled = 1
+" disabled - slow - enable tagbar in vim-airline status bar when needed
+let g:airline#extensions#tagbar#enabled = 0
 
 
 "-----------------------------------------------------------------------------
@@ -417,12 +420,14 @@ let g:airline#extensions#tagbar#enabled = 1
 nnoremap <F4> :GundoToggle<CR>
 let g:gundo_preview_bottom=1
 
+
 "-----------------------------------------------------------------------------
 " Vitality settings
 "-----------------------------------------------------------------------------
 let g:vitality_fix_cursor = 1
 let g:vitality_fix_focus = 0
 let g:vitality_always_assume_iterm = 1
+
 
 "-----------------------------------------------------------------------------
 " Scratch settings
@@ -439,7 +444,7 @@ function! ScratchToggle()
     endif
 endfunction
 
-nnoremap <silent> <Leader><TAB> :ScratchToggle<cr>
+nnoremap <Leader><TAB> :ScratchToggle<cr>
 
 
 "-----------------------------------------------------------------------------
