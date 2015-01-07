@@ -38,6 +38,7 @@ Plugin 't9md/vim-choosewin'
 Plugin 'tommcdo/vim-exchange'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-dispatch'
 Plugin 'vim-scripts/scratch.vim'
 
 " =============== Vundle Initialization ===============
