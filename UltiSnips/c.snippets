@@ -41,6 +41,16 @@ snippet Inc "#include <> (Inc)"
 #include <${1:.h}>
 endsnippet
 
+snippet cmt "Comment - single line"
+/* ${1:comment} */
+endsnippet
+
+snippet cmtml "Comment - multi-line"
+/* 
+ *	${1:comment} 
+ */
+endsnippet
+
 snippet mark "#pragma mark (mark)"
 #if 0
 ${1:#pragma mark -
