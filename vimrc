@@ -209,6 +209,10 @@ nnoremap g; g;zz
 nnoremap g, g,zz
 nnoremap <C-o> <C-o>zz
 
+" expand file path of active buffer (for :edit, :write, etc)
+" from Pragmatic Practical Vim
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+
 "============================================================
 " functions, commands, macros, etc
 "============================================================
