@@ -380,9 +380,13 @@ let g:ctrlp_match_window = 'top'
 " jump to file if already open instead of opening a new instance
 let g:ctrlp_switch_buffer = 'Et'
 
+" buffers
 map <Leader>fb :CtrlPBuffer<cr>
+" file current dir
 map <Leader>ff :CtrlP .<cr>
+" file root
 map <Leader>fr :CtrlP<cr>
+" files, buffers, and MRU
 map <Leader>fm :CtrlPMixed<cr>
 
 
