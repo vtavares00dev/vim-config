@@ -151,6 +151,10 @@ map Q gq
 nnoremap <TAB> :bnext<CR>
 nnoremap <S-TAB> :bprevious<CR>
 
+" Shift + left/right to switch tabs.
+noremap <S-Left> :tabp<CR>
+noremap <S-Right> :tabn<CR>
+
 " redo
 nmap <Leader>u <C-R>
 
@@ -204,10 +208,6 @@ nnoremap N Nzzzv
 nnoremap g; g;zz
 nnoremap g, g,zz
 nnoremap <C-o> <C-o>zz
-
-" Shift + left/right to switch tabs.
-noremap <S-Left> :tabp<CR>
-noremap <S-Right> :tabn<CR>
 
 "============================================================
 " functions, commands, macros, etc
@@ -307,6 +307,8 @@ noremap <Leader>ev :vsplit $MYVIMRC<CR>     " open up .vimrc
 " vim-airline
 "------------------------------------------------------------
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_min_count = 2 " min buffs to show
+let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
 let g:airline#extensions#tabline#left_sep=' '
 let g:airline#extensions#tabline#left_alt_sep='¦'
 let g:airline#extensions#branch#enabled = 1
