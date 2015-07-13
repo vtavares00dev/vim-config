@@ -40,6 +40,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-dispatch'
 Plugin 'vim-scripts/scratch.vim'
+Plugin 'fatih/vim-go'
 
 " =============== Vundle Initialization ===============
 " All of your Plugins must be added before the following line
@@ -424,6 +425,14 @@ let g:tagbar_autofocus = 1
 " disabled - slow - enable tagbar in vim-airline status bar when needed
 let g:airline#extensions#tagbar#enabled = 0
 
+"-----------------------------------------------------------------------------
+" vim-go settings
+"-----------------------------------------------------------------------------
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
 
 "-----------------------------------------------------------------------------
 " Gundo settings
