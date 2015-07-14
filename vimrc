@@ -150,12 +150,14 @@ let mapleader = "\<Space>"
 map Q gq
 
 " cycle through buffers with tab and shift-tab
-nnoremap <TAB> :bnext<CR>
-nnoremap <S-TAB> :bprevious<CR>
+"nnoremap <TAB> :bnext<CR>
+"nnoremap <S-TAB> :bprevious<CR>
+nnoremap <S-Right> :bnext<CR>
+nnoremap <S-Left> :bprevious<CR>
 
 " Shift + left/right to switch tabs.
-noremap <S-Left> :tabp<CR>
-noremap <S-Right> :tabn<CR>
+noremap <C-S-Left> :tabp<CR>
+noremap <C-S-Right> :tabn<CR>
 
 " redo
 nmap <Leader>u <C-R>
