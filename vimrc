@@ -426,6 +426,9 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_use_ultisnips_completer = 1
 
+" YouCompleteMe will populate vim's location list with new diagnostic data
+" You can jump through the entries in that list with :lnext and :lprevious
+let g:ycm_always_populate_location_list = 1
 
 "-----------------------------------------------------------------------------
 " UltiSnips
