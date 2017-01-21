@@ -13,7 +13,7 @@ flags = [
   '-std=c99',
   '-xc',
   '-isystem/usr/include/',
-  '-I/usr/lib/'
+  '-I/usr/lib/',
   '-I/usr/include/'
   ]
 
