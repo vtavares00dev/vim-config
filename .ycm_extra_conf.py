@@ -15,15 +15,7 @@ flags = [
   '-isystem/usr/include/',
   '-I/usr/lib/',
   '-I/usr/include/'
-  ]
-
-SOURCE_EXTENSIONS = [ '.cpp', '.cxx', '.cc', '.c', ]
-
-def FlagsForFile( filename, **kwargs ):
-  return {
-  'flags': flags,
-  'do_cache': True
-  }
+]
 
 compilation_database_folder = ''
 
@@ -32,23 +24,18 @@ if os.path.exists( compilation_database_folder ):
 else:
   database = None
 
+SOURCE_EXTENSIONS = [ '.cpp', '.cxx', '.cc', '.c', '.m', '.mm' ]
+
 def DirectoryOfThisScript():
   return os.path.dirname( os.path.abspath( __file__ ) )
+
 
 def MakeRelativePathsInFlagsAbsolute( flags, working_directory ):
   if not working_directory:
     return list( flags )
-
   new_flags = []
   make_next_absolute = False
   path_flags = [ '-isystem', '-I', '-iquote', '--sysroot=' ]
-
-  for libDir in libDirs:
-    for path, dirs, files in os.walk(libDir):
-      for d in dirs:
-        flag = '-I' + os.path.join(path, d)
-        flags.append(flag)
-
   for flag in flags:
     new_flag = flag
 
@@ -69,7 +56,6 @@ def MakeRelativePathsInFlagsAbsolute( flags, working_directory ):
 
     if new_flag:
       new_flags.append( new_flag )
-
   return new_flags
 
 
@@ -111,10 +97,10 @@ def FlagsForFile( filename, **kwargs ):
     # NOTE: This is just for YouCompleteMe; it's highly likely that your project
     # does NOT need to remove the stdlib flag. DO NOT USE THIS IN YOUR
     # ycm_extra_conf IF YOU'RE NOT 100% SURE YOU NEED IT.
-    #try:
-    #  final_flags.remove( '-stdlib=libc++' )
-    #except ValueError:
-    #  pass
+    try:
+      final_flags.remove( '-stdlib=libc++' )
+    except ValueError:
+      pass
   else:
     relative_to = DirectoryOfThisScript()
     final_flags = MakeRelativePathsInFlagsAbsolute( flags, relative_to )
