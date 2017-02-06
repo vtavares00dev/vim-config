@@ -11,5 +11,7 @@ To install from scratch:
 * configure YouCompleteMe:
     - `cd ~/.vim/bundle/YouCompleteMe`
     - `./install.sh --clang-completer`
+* install the Meslo Powerline font from `https://github.com/PaBLoX-CL/powerline-fonts`
+    - I use the "Meslo LG M DZ Regular for Powerline" font
 * start vim and profit!
 
