@@ -265,8 +265,11 @@ noremap <Leader>ws :call DeleteTrailingWS()<CR>
 "============================================================
 iabbrev vmt Victor Tavares
 
+"iso 8601 date format
+iabbrev idate <C-r>=strftime("%Y-%m-%d")<CR>
+
 "iso 8601 date and time format
-iabbrev idate <C-r>=strftime("%Y-%m-%d %H:%M:%S %z")<CR>
+iabbrev itdate <C-r>=strftime("%Y-%m-%d %H:%M:%S %z")<CR>
 
 " rfc 2822 date format
 iabbrev rdate <C-r>=strftime("%d %b %Y")<CR>
