@@ -150,13 +150,11 @@ let mapleader = "\<Space>"
 " Don't use Ex mode, use Q for formatting
 map Q gq
 
-" cycle through buffers with tab and shift-tab
-"nnoremap <TAB> :bnext<CR>
-"nnoremap <S-TAB> :bprevious<CR>
+" cycle through buffers with shift + left/right arrow
 nnoremap <S-Right> :bnext<CR>
 nnoremap <S-Left> :bprevious<CR>
 
-" Shift + left/right to switch tabs.
+" cycle through tabs with control + shift + left/right arrow
 noremap <C-S-Left> :tabp<CR>
 noremap <C-S-Right> :tabn<CR>
 
@@ -164,7 +162,7 @@ noremap <C-S-Right> :tabn<CR>
 nmap <Leader>u <C-R>
 
 " Kill buffer
-nnoremap K :bd<cr>
+nnoremap <Leader>K :bd<cr>
 
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
@@ -181,13 +179,12 @@ nmap <Leader>k <C-W>k
 nmap <Leader>h <C-W>h
 nmap <Leader>l <C-W>l
 nmap <Leader>w <C-W><C-W>
+" close window
+nmap <Leader>c <C-W>c
 
 " Shrink the current window to fit the number of lines in the buffer.  Useful
 " for those buffers that are only a few lines
 nmap <Leader>sw :execute ":resize " . line('$')<cr>
-
-" run ctags and output on new vsplit
-" map  :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 " set text wrapping toggles
 nmap <Leader>ww :set invwrap<CR>:set wrap?<CR>
@@ -430,6 +427,7 @@ let g:ycm_use_ultisnips_completer = 1
 " You can jump through the entries in that list with :lnext and :lprevious
 let g:ycm_always_populate_location_list = 1
 
+
 "-----------------------------------------------------------------------------
 " UltiSnips
 "-----------------------------------------------------------------------------
@@ -447,14 +445,19 @@ let g:tagbar_autofocus = 1
 " disabled - slow - enable tagbar in vim-airline status bar when needed
 let g:airline#extensions#tagbar#enabled = 0
 
+
 "-----------------------------------------------------------------------------
 " vim-go settings
 "-----------------------------------------------------------------------------
+" use goimports for formatting
+let g:go_fmt_command = "goimports"
+
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+
 
 "-----------------------------------------------------------------------------
 " Gundo settings
