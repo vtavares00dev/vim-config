@@ -42,7 +42,6 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'vim-scripts/scratch.vim'
 Plugin 'fatih/vim-go'
 Plugin 'nsf/gocode', {'rtp': 'vim/'}
-Plugin 'craigemery/vim-autotag'
 
 " =============== Vundle Initialization ===============
 " All of your Plugins must be added before the following line
@@ -351,22 +350,6 @@ nmap <Leader>gm :Gmove<cr>
 nmap <Leader>gr :Gremove<cr>
 nmap <Leader>gs :Gstatus<cr>
 nmap <Leader>gw :Gwrite<cr>
-
-
-"------------------------------------------------------------
-" vim-autotag
-"------------------------------------------------------------
-"g:autotagmaxTagsFileSize	a cap on what size tag file to strip etc
-"g:autotagExcludeSuffixes	suffixes to not ctags on
-"g:autotagVerbosityLevel	logging verbosity (as in Python logging module)
-"g:autotagCtagsCmd			name of ctags command
-"g:autotagTagsFile			name of tags file to look for
-"g:autotagDisabled			Disable autotag (enable by setting to any non-blank value)
-"g:autotagStopAt			stop looking for a tags file (and make one) at this directory (defaults to $HOME)
-
-"Example
-"let g:autotagTagsFile=".tags"
-
 
 "-----------------------------------------------------------------------------
 " NERD Tree Plugin Settings
