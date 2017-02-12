@@ -267,17 +267,6 @@ endfunc
 " map trailing whitespace deletion to <Leader>ws
 noremap <Leader>ws :call DeleteTrailingWS()<CR>
 
-function! FollowTag()
-  if !exists("w:tagbrowse")
-    vsplit
-    let w:tagbrowse=1
-  endif
-  execute "tag " . expand("<cword>")
-endfunction
-
-nnoremap <c-\> :call FollowTag()<CR>
-
-
 "============================================================
 " text replacements
 "============================================================
