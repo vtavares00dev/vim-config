@@ -374,8 +374,8 @@ nmap <F7> :NERDTreeToggle<CR>
 " Close the NERD Tree with Shift-F7
 nmap <S-F7> :NERDTreeClose<CR>
 
-" move NERDTree window to the right
-let g:NERDTreeWinPos = "right"
+" move NERDTree window to the left
+let g:NERDTreeWinPos = "left"
 
 " make window decent size
 let g:NERDTreeWinSize = 48
