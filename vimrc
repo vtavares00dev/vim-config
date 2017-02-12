@@ -204,9 +204,6 @@ map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark")<CR>
 " turn of diff
 map <Leader>D :diffoff!<CR>
 
-" Use c-\\ to do c-] but open it in a new split.
-nnoremap <C-\><C-\> <C-w>v<C-]>zvzz
-
 " Keep search matches in the middle of the window.
 nnoremap n nzzzv
 nnoremap N Nzzzv
@@ -269,6 +266,16 @@ endfunc
 
 " map trailing whitespace deletion to <Leader>ws
 noremap <Leader>ws :call DeleteTrailingWS()<CR>
+
+function! FollowTag()
+  if !exists("w:tagbrowse")
+    vsplit
+    let w:tagbrowse=1
+  endif
+  execute "tag " . expand("<cword>")
+endfunction
+
+nnoremap <c-\> :call FollowTag()<CR>
 
 
 "============================================================
