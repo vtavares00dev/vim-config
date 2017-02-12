@@ -42,6 +42,9 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'vim-scripts/scratch.vim'
 Plugin 'fatih/vim-go'
 Plugin 'nsf/gocode', {'rtp': 'vim/'}
+Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'vim-scripts/a.vim'
+Plugin 'ervandew/supertab'
 
 " =============== Vundle Initialization ===============
 " All of your Plugins must be added before the following line
@@ -163,6 +166,9 @@ nmap <Leader>u <C-R>
 " Kill buffer
 nnoremap <Leader>K :bd<cr>
 
+" quickly type kkj in insert mode to <ESC>
+imap kkj <Esc>
+
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
@@ -213,6 +219,11 @@ nnoremap <C-o> <C-o>zz
 " expand file path of active buffer (for :edit, :write, etc)
 " from Pragmatic Practical Vim
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+
+" quickfix window navigation
+map <C-n> :cnext<CR>
+map <C-m> :cprevious<CR>
+nnoremap <Leader>q :cclose<CR>
 
 "============================================================
 " functions, commands, macros, etc
@@ -342,17 +353,17 @@ let g:airline_symbols.linenr = ''
 "------------------------------------------------------------
 " vim-fugitive
 "------------------------------------------------------------
-nmap <Leader>ga :Gadd<cr>
-nmap <Leader>gb :Gblame<cr>
-nmap <Leader>gci :Gcommit<cr>
-nmap <Leader>gco :Gcheckout<cr>
-nmap <Leader>gd :Gdiff<cr>
-nmap <Leader>ge :Gedit<cr>
-nmap <Leader>gl :Glog<cr>
-nmap <Leader>gm :Gmove<cr>
-nmap <Leader>gr :Gremove<cr>
-nmap <Leader>gs :Gstatus<cr>
-nmap <Leader>gw :Gwrite<cr>
+nmap <Leader>Ga :Gadd<cr>
+nmap <Leader>Gb :Gblame<cr>
+nmap <Leader>Gci :Gcommit<cr>
+nmap <Leader>Gco :Gcheckout<cr>
+nmap <Leader>Gd :Gdiff<cr>
+nmap <Leader>Ge :Gedit<cr>
+nmap <Leader>Gl :Glog<cr>
+nmap <Leader>Gm :Gmove<cr>
+nmap <Leader>Gr :Gremove<cr>
+nmap <Leader>Gs :Gstatus<cr>
+nmap <Leader>Gw :Gwrite<cr>
 
 "-----------------------------------------------------------------------------
 " NERD Tree Plugin Settings
@@ -400,11 +411,12 @@ map <Leader>fm :CtrlPMixed<cr>
 "-----------------------------------------------------------------------------
 " YouCompleteMe settings
 "-----------------------------------------------------------------------------
-" only enable for python, c or c++ files
+" only enable for python, go, c, or c++ files
 let g:ycm_key_detailed_diagnostics = '<Leader>d'
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_filetype_whitelist = {'c': 1, 'cpp': 1, 'h': 1, 'CC': 1, 'cxx': 1, 'go': 1, 'py': 1}
+let g:ycm_add_preview_to_completeopt = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_use_ultisnips_completer = 1
@@ -413,15 +425,23 @@ let g:ycm_use_ultisnips_completer = 1
 " You can jump through the entries in that list with :lnext and :lprevious
 let g:ycm_always_populate_location_list = 1
 
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<S-C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<S-C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<S-C-n>'
+" workaround for YCM snippets bug
+nnoremap <F5> :doautocmd FileType<CR>
+
 
 "-----------------------------------------------------------------------------
 " UltiSnips
 "-----------------------------------------------------------------------------
-let g:UltiSnipsExpandTrigger="<F9>"
-let g:UltiSnipsJumpForwardTrigger="<F9>"
-let g:UltiSnipsJumpBackwardTrigger="<S-F9>"
-let g:UltiSnipsSnippetsDir = "~/.vim/UltiSnips"
-
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<S-tab>'
+" let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
+let g:UltiSnipsListSnippets = '<f9>'
 
 "-----------------------------------------------------------------------------
 " Tagbar settings
@@ -437,12 +457,35 @@ let g:airline#extensions#tagbar#enabled = 0
 "-----------------------------------------------------------------------------
 " use goimports for formatting
 let g:go_fmt_command = "goimports"
+" use quickfix for all errors
+let g:go_list_type = "quickfix"
+" highlight same variable,function or struct.
+let g:go_auto_sameids = 1
+" don't use the default guru command for defs
+let g:go_def_mode = 'godef'
+" automatically show type info
+" let g:go_auto_type_info = 1
 
+
+" highlight in vim-go
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+
+au FileType go nmap <Leader>gr <Plug>(go-run)
+au FileType go nmap <Leader>gb <Plug>(go-build)
+au FileType go nmap <Leader>gt <Plug>(go-test)
+au FileType go nmap <Leader>gc <Plug>(go-coverage-toggle)
+au FileType go nmap <leader>gd <Plug>(go-doc)
+au FileType go nmap <leader>gw <Plug>(go-doc-browser)
+au FileType go nmap <leader>gs <Plug>(go-implements)
+au FileType go nmap <leader>gi <Plug>(go-info)
+au FileType go nmap <leader>ge <Plug>(go-rename)
+au FileType go nmap <leader>ga <Plug>(go-alternate-edit)
 
 
 "-----------------------------------------------------------------------------
@@ -485,6 +528,27 @@ nmap <F10> <Plug>(choosewin)
 nmap <S-F10> <plug>(choosewin-swap)
 let g:choosewin_overlay_enable=1
 let g:choosewin_return_on_single_win=1  " return immediately when only 1 win
+
+"-----------------------------------------------------------------------------
+" a.vim - commands to swtich between source files and header files quickly
+"-----------------------------------------------------------------------------
+" :A   switches to the header file corresponding to the current file being 
+"      edited (or vise versa)
+" :AS  splits and switches
+" :AV  vertical splits and switches
+" :AT  new tab and switches
+" :AN  cycles through matches
+" :IH  switches to file under cursor
+" :IHS splits and switches
+" :IHV vertical splits and switches
+" :IHT new tab and switches
+" :IHN cycles through matches
+"
+" <Leader>ih switches to file under cursor
+" <Leader>is switches to the alternate file of file under cursor 
+"   (e.g. on  <foo.h> switches to foo.cpp)
+" <Leader>ihn cycles through matches
+"
 
 
 "-----------------------------------------------------------------------------
