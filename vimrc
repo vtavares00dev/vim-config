@@ -461,6 +461,9 @@ let g:go_auto_sameids = 1
 let g:go_def_mode = 'godef'
 " automatically show type info
 " let g:go_auto_type_info = 1
+"
+" disable the autodection of gopath (for windows/cygwin)
+let g:go_autodetect_gopath=0
 
 
 " highlight in vim-go
