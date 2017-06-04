@@ -433,8 +433,8 @@ nnoremap <F5> :doautocmd FileType<CR>
 " UltiSnips
 "-----------------------------------------------------------------------------
 let g:UltiSnipsExpandTrigger = '<tab>'
-let g:UltiSnipsJumpForwardTrigger = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<S-tab>'
+let g:UltiSnipsJumpForwardTrigger = '<right>'
+let g:UltiSnipsJumpBackwardTrigger = '<left>'
 " let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
 let g:UltiSnipsListSnippets = '<f9>'
