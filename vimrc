@@ -199,7 +199,7 @@ nmap <Leader>sw :execute ":resize " . line('$')<cr>
 nmap <Leader>ww :set invwrap<CR>:set wrap?<CR>
 
 " Launch the Mark app to view markdown file being edited
-command! Markdown !mark %
+command! Markdown !open -a Marked %
 map <Leader>md :Markdown<CR>
 
 " toggle dark or light background
