@@ -150,6 +150,9 @@ set undofile
 nnoremap <SPACE> <Nop>
 let mapleader = "\<Space>"
 
+" redraw the screen
+map <Leader><Leader> :redraw!<CR>
+
 " Don't use Ex mode, use Q for formatting
 map Q gq
 
