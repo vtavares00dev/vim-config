@@ -147,6 +147,7 @@ set undofile
 "============================================================
 
 " System default for mappings is now the space character
+nnoremap <SPACE> <Nop>
 let mapleader = "\<Space>"
 
 " Don't use Ex mode, use Q for formatting
