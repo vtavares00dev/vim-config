@@ -4,6 +4,8 @@
 " inspired by many other examples, including:
 " https://github.com/sjl/dotfiles/
 " https://github.com/henrik/dotfiles/
+" https://github.com/sebdah/dotfiles/
+" https://github.com/fatih/dotfiles/
 
 "------------------------------------------------------------
 " Global
@@ -39,9 +41,9 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 "------------------------------------------------------------
 " My Plugins
 "------------------------------------------------------------
+Plug 'tpope/vim-rhubarb'           " Depenency for tpope/fugitive
 Plug 'SirVer/ultisnips'
 Plug 'bling/vim-airline'
-" Plug 'honza/vim-snippets'
 Plug 'kien/ctrlp.vim'
 Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdtree'
@@ -54,10 +56,13 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-dispatch'
 Plug 'vim-scripts/scratch.vim'
 Plug 'fatih/vim-go'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'zchee/deoplete-go', { 'do': 'make'}
+Plug 'sebdah/vim-delve'
 Plug 'nsf/gocode', {'rtp': 'vim/'}
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'vim-scripts/a.vim'
 Plug 'ervandew/supertab'
+Plug 'plasticboy/vim-markdown'
 
 " =============== Plugin Initialization ===============
 " All of your Plugins must be added before the following line
@@ -113,7 +118,9 @@ set fileformats=unix,dos,mac
 " speed up syntax highlighting
 set nocursorcolumn
 set nocursorline
-set updatetime=300
+set updatetime=100
+
+set nohlsearch
 
 " Completion window max size
 set pumheight=10
@@ -167,6 +174,19 @@ set undodir=~/.vim/backups
 set undolevels=100
 set undofile
 "------------------------------------------------------------
+"
+
+"============================================================
+" Neovim specific settings
+"============================================================
+if has('nvim')
+    " Set the Python binaries neovim is using. Please note that you will need to
+    " install the neovim package for these binaries separately like this for
+    " example:
+    " pip3 install -U neovim
+    let g:python_host_prog = '/usr/local/bin/python2.7'
+    let g:python3_host_prog = '/usr/local/bin/python3.6'
+endif
 
 "============================================================
 " FileTypes
@@ -174,12 +194,21 @@ set undofile
 
 autocmd BufNewFile,BufRead *.txt setlocal noet ts=4 sw=4
 
+au FileType markdown setlocal spell
+au FileType markdown set expandtab
+au FileType markdown set shiftwidth=4
+au FileType markdown set softtabstop=4
+au FileType markdown set tabstop=4
+au FileType markdown set syntax=markdown
+
+
 
 "============================================================
 " maps
 "============================================================
 
 " System default for mappings is now the space character
+"let mapleader = ","
 nnoremap <SPACE> <Nop>
 let mapleader = "\<Space>"
 
@@ -204,7 +233,7 @@ nmap <Leader>u <C-R>
 nnoremap <Leader>K :bd<cr>
 
 " Close all but the current one
-nnoremap <Leader>o :only<CR>
+nnoremap <Leader>. :only<CR>
 
 " Print the full path
 map <C-F> :echo expand("%:p")<CR>
@@ -442,6 +471,10 @@ let g:NERDTreeQuitOnOpen = 1
 " Show the bookmarks table on startup
 let g:NERDTreeShowBookmarks=1
 
+" Close vim if NERDTree is the only opened window
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+
 " Don't display these kinds of files
 " let NERDTreeIgnore=[ '\.obj$', '\.bak$']
 
@@ -588,11 +621,25 @@ function! s:build_go_files()
     call go#cmd#Build(0)
   endif
 endfunction
-autocmd FileType go nmap <silent> <Leader>gb :<C-u>call <SID>build_go_files()<CR>
-
 
 "au FileType go nmap <Leader>gb <Plug>(go-build)
 autocmd FileType go nmap <silent> <Leader>gb :<C-u>call <SID>build_go_files()<CR>
+
+" gometalinter configuration
+let g:go_metalinter_command = ""
+let g:go_metalinter_deadline = "5s"
+let g:go_metalinter_enabled = [
+    \ 'deadcode',
+    \ 'errcheck',
+    \ 'gas',
+    \ 'goconst',
+    \ 'gocyclo',
+    \ 'golint',
+    \ 'gosimple',
+    \ 'ineffassign',
+    \ 'vet',
+    \ 'vetshadow'
+\]
 
 au FileType go nmap <Leader>gr <Plug>(go-run)
 au FileType go nmap <Leader>gt <Plug>(go-test)
@@ -603,6 +650,8 @@ au FileType go nmap <Leader>gs <Plug>(go-implements)
 au FileType go nmap <Leader>gi <Plug>(go-info)
 au FileType go nmap <Leader>ge <Plug>(go-rename)
 au FileType go nmap <Leader>ga <Plug>(go-alternate-edit)
+au FileType go nmap <F5> :GoCoverageToggle -short<cr>
+
 
 " create a go doc comment based on the word under the cursor
 function! s:create_go_doc_comment()
@@ -611,6 +660,35 @@ function! s:create_go_doc_comment()
   execute ":norm I// \<Esc>$"
 endfunction
 au FileType go nmap <silent> <Leader>go :<C-u>call <SID>create_go_doc_comment()<CR>
+
+"-----------------------------------------------------------------------------
+" deoplete settings
+"-----------------------------------------------------------------------------
+if has('nvim')
+    " Enable deoplete on startup
+    let g:deoplete#enable_at_startup = 1
+endif
+
+"-----------------------------------------------------------------------------
+" deoplete-go settings
+"-----------------------------------------------------------------------------
+" Enable completing of go pointers
+let g:deoplete#sources#go#pointer = 1
+
+"-----------------------------------------------------------------------------
+" vim-delve settings
+"-----------------------------------------------------------------------------
+" Set the Delve backend.
+let g:delve_backend = "native"
+
+"-----------------------------------------------------------------------------
+" vim-markdown settings
+"-----------------------------------------------------------------------------
+" Disable folding
+let g:vim_markdown_folding_disabled = 1
+
+" Auto shrink the TOC, so that it won't take up 50% of the screen
+let g:vim_markdown_toc_autofit = 1
 
 "-----------------------------------------------------------------------------
 " Gundo settings

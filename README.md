@@ -1,17 +1,27 @@
-# Victor Tavares' Vim Configuration
+# Victor Tavares' neovim Configuration
 
 To install from scratch:
 
+* install neovim and Python (if needed) with homebrew
+  `brew install python`
+  `brew install python3`
+  `brew install neovim`
+
+* install pip via easy_install:
+  `sudo easy_install pip`
+
+* pip install neovim modules
+  `sudo pip install neovim`
+  `sudo pip3 install neovim`
+
 * remove or backup your `~/.vimrc` file and `~/.vim` directory
-* `git clone https://github.com/vtavares00dev/vim-config.git ~/.vim`
-* `ln -s ~/.vim/vimrc ~/.vimrc`
-* install vundle: 
-  `git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim`
-* install/update all bundles (using vundle): `vim +PluginInstall! +qall`
-* configure YouCompleteMe:
-    - `cd ~/.vim/bundle/YouCompleteMe`
-    - `./install.sh --clang-completer`
+* bring down github archive
+  `git clone https://github.com/vtavares00dev/vim-config.git ~/.vim`
+  `ln -s ~/.vim/nvimrc ~/.vimrc`
+* install plug: 
+`curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim`
+* install/update all plugins (using plug): `nvim +PlugInstall! +qall`
 * install the Meslo Powerline font from `https://github.com/PaBLoX-CL/powerline-fonts`
     - I use the "Meslo LG M DZ Regular for Powerline" font
-* start vim and profit!
+* start nvim and profit!
 
