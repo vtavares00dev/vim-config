@@ -275,10 +275,10 @@ map <Leader>md :Markdown<CR>
 " toggle dark or light background
 map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark")<CR>
 
-" turn of diff
+" turn off diff
 map <Leader>D :diffoff!<CR>
 
-"
+" toggle spelling on/off
 map <F3> :setlocal spell! spelllang=en_ca<CR>
 imap <F3> <C-o>:setlocal spell! spelllang=en_ca<CR>
 
@@ -386,6 +386,8 @@ if &t_Co > 2 || has("gui_running")
   colorscheme solarized
   set guifont=Meslo\ LG\ M\ DZ\ Regular\ for\ Powerline\ Nerd\ Font\ Complete:h12
 endif
+
+" underline and highlight spelling errors in red
 hi clear SpellBad
 hi SpellBad cterm=underline ctermfg=red
 
