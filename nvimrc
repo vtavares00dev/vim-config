@@ -42,27 +42,35 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 " My Plugins
 "------------------------------------------------------------
 Plug 'tpope/vim-rhubarb'           " Depenency for tpope/fugitive
+Plug 'godlygeek/tabular'           " This must come before plasticboy/vim-markdown
+
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'Raimondi/delimitMate'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'SirVer/ultisnips'
+Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
-Plug 'kien/ctrlp.vim'
+Plug 'ervandew/supertab'
+Plug 'fatih/vim-go'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'majutsushi/tagbar'
+Plug 'nsf/gocode', {'rtp': 'vim/'}
+Plug 'plasticboy/vim-markdown'
 Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree-git-plugin'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'sebdah/vim-delve'
 Plug 'sjl/gundo.vim'
 Plug 'sjl/vitality.vim'
 Plug 't9md/vim-choosewin'
 Plug 'tommcdo/vim-exchange'
+Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-dispatch'
 Plug 'vim-scripts/scratch.vim'
-Plug 'fatih/vim-go'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-go', { 'do': 'make'}
-Plug 'sebdah/vim-delve'
-Plug 'nsf/gocode', {'rtp': 'vim/'}
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'ervandew/supertab'
-Plug 'plasticboy/vim-markdown'
+
+Plug 'ryanoasis/vim-devicons'
 
 " =============== Plugin Initialization ===============
 " All of your Plugins must be added before the following line
@@ -378,8 +386,8 @@ if &t_Co > 2 || has("gui_running")
   set synmaxcol=2048
   set background=dark
   colorscheme solarized
-  set guifont=Meslo\ LG\ M\ DZ\ Regular\ for\ Powerline:h12
-"  set hlsearch
+  "set guifont=Meslo\ LG\ M\ DZ\ Regular\ for\ Powerline:h12
+  set guifont=Meslo\ LG\ M\ DZ\ Regular\ for\ Powerline\ Nerd\ Font\ Complete:h12
 endif
 
 " Time out on key codes but not mappings.
@@ -407,6 +415,11 @@ noremap <Leader>ev :vsplit $MYVIMRC<CR>     " open up .vimrc
 "============================================================
 
 "------------------------------------------------------------
+" vim-devicons
+"------------------------------------------------------------
+let g:webdevicons_enable = 1
+
+"------------------------------------------------------------
 " vim-airline
 "------------------------------------------------------------
 let g:airline#extensions#tabline#enabled = 1
@@ -432,6 +445,9 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
+
+" enable vim-devicons in vim-airline
+let g:webdevicons_enable_airline_tabline = 1
 
 
 "------------------------------------------------------------
@@ -474,6 +490,11 @@ let g:NERDTreeShowBookmarks=1
 " Close vim if NERDTree is the only opened window
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
+" vim-devions configuration
+let g:webdevicons_enable_nerdtree = 1
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:WebDevIconsOS = 'Darwin'
+
 
 " Don't display these kinds of files
 " let NERDTreeIgnore=[ '\.obj$', '\.bak$']
@@ -504,6 +525,9 @@ map <Leader>ff :CtrlP .<cr>
 map <Leader>fr :CtrlP<cr>
 " files, buffers, and MRU
 map <Leader>fm :CtrlPMixed<cr>
+
+" enable vim-devicons
+let g:webdevicons_enable_ctrlp = 1
 
 
 "-----------------------------------------------------------------------------
@@ -610,7 +634,7 @@ let g:go_highlight_structs = 1
 let g:go_highlight_trailing_whitespace_error = 0
 let g:go_highlight_types = 1
 
-let g:go_modifytags_transform = 'camelcase'
+let g:go_modifytags_transform = 'snake_case'
 
 " run :GoBuild or :GoTestCompile based on the go file
 function! s:build_go_files()
@@ -695,6 +719,20 @@ let g:vim_markdown_toc_autofit = 1
 "-----------------------------------------------------------------------------
 nnoremap <F4> :GundoToggle<CR>
 let g:gundo_preview_bottom=1
+
+"-----------------------------------------------------------------------------
+" delimitMate settings
+"-----------------------------------------------------------------------------
+let g:delimitMate_expand_cr = 1
+let g:delimitMate_expand_space = 1
+let g:delimitMate_smart_quotes = 1
+let g:delimitMate_expand_inside_quotes = 0
+let g:delimitMate_smart_matchpairs = '^\%(\w\|\$\)'
+
+"imap <expr> <CR> pumvisible() ? "\<C-Y>" : "<Plug>delimitMateCR"
+imap <expr> <CR> pumvisible()
+                 \ ? "\<C-Y>\<CR>"
+                 \ : '<Plug>delimitMateCR'
 
 
 "-----------------------------------------------------------------------------

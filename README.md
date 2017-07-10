@@ -14,14 +14,18 @@ To install from scratch:
   `sudo pip install neovim`
   `sudo pip3 install neovim`
 
-* remove or backup your `~/.vimrc` file and `~/.vim` directory
+* remove or backup your `~/.nvimrc` file and `~/.vim` directory
 * bring down github archive
   `git clone https://github.com/vtavares00dev/vim-config.git ~/.vim`
-  `ln -s ~/.vim/nvimrc ~/.vimrc`
-* install plug: 
-`curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim`
+  `ln -s ~/.vim/nvimrc ~/.nvimrc`
+* install plug:
+  `curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim`
 * install/update all plugins (using plug): `nvim +PlugInstall! +qall`
-* install the Meslo Powerline font from `https://github.com/PaBLoX-CL/powerline-fonts`
-    - I use the "Meslo LG M DZ Regular for Powerline" font
+
+* install the Nerd Fonts for vim-devicons plugin 
+
+  `cd ~/Library/Fonts && curl -fLo "Meslo LG M DZ Regular for Powerline Nerd Font Complete.otf" https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/Meslo/M-DZ/complete/Meslo%20LG%20M%20DZ%20Regular%20for%20Powerline%20Nerd%20Font%20Complete.otf`
+
+* restore iTerm2 preferences file `com.googlecode.iterm2.plist`
 * start nvim and profit!
 
