@@ -41,6 +41,7 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 "------------------------------------------------------------
 " My Plugins
 "------------------------------------------------------------
+" pre-dependencies
 Plug 'tpope/vim-rhubarb'           " Depenency for tpope/fugitive
 Plug 'godlygeek/tabular'           " This must come before plasticboy/vim-markdown
 
@@ -50,19 +51,19 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'SirVer/ultisnips'
 Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ervandew/supertab'
 Plug 'fatih/vim-go'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'majutsushi/tagbar'
 Plug 'nsf/gocode', {'rtp': 'vim/'}
 Plug 'plasticboy/vim-markdown'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdtree-git-plugin'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'sebdah/vim-delve'
 Plug 'sjl/gundo.vim'
 Plug 'sjl/vitality.vim'
 Plug 't9md/vim-choosewin'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tommcdo/vim-exchange'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
@@ -71,6 +72,7 @@ Plug 'tpope/vim-surround'
 Plug 'vim-scripts/scratch.vim'
 Plug 'zchee/deoplete-go', { 'do': 'make'}
 
+" post-dependencies
 Plug 'ryanoasis/vim-devicons'
 
 " =============== Plugin Initialization ===============
@@ -203,21 +205,12 @@ endif
 
 autocmd BufNewFile,BufRead *.txt setlocal noet ts=4 sw=4
 
-au FileType markdown setlocal spell
-au FileType markdown set expandtab
-au FileType markdown set shiftwidth=4
-au FileType markdown set softtabstop=4
-au FileType markdown set tabstop=4
-au FileType markdown set syntax=markdown
-
-
 
 "============================================================
 " maps
 "============================================================
 
 " System default for mappings is now the space character
-"let mapleader = ","
 nnoremap <SPACE> <Nop>
 let mapleader = "\<Space>"
 
@@ -387,7 +380,6 @@ if &t_Co > 2 || has("gui_running")
   set synmaxcol=2048
   set background=dark
   colorscheme solarized
-  "set guifont=Meslo\ LG\ M\ DZ\ Regular\ for\ Powerline:h12
   set guifont=Meslo\ LG\ M\ DZ\ Regular\ for\ Powerline\ Nerd\ Font\ Complete:h12
 endif
 
@@ -465,7 +457,7 @@ nmap <Leader>Gm :Gmove<cr>
 nmap <Leader>Gr :Gremove<cr>
 nmap <Leader>Gs :Gstatus<cr>
 nmap <Leader>Gw :Gwrite<cr>
-nmap <Leader>Gh :.Gbrowse<CR>
+nmap <Leader>Gh :.Gbrowse<CR>   "open in GitHub
 
 "-----------------------------------------------------------------------------
 " NERD Tree Plugin Settings
@@ -515,10 +507,6 @@ let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
 let g:ctrlp_match_window = 'bottom,order:btt,max:10,results:10'
 let g:ctrlp_buftag_types = {'go' : '--language-force=go --golang-types=ftv'}
 
-" buffers
-"nmap <Leader> :CtrlPCurWD<cr>
-"imap <Leader>  <esc>:CtrlPCurWD<cr>
-
 map <Leader>fw :CtrlPBuffer<cr>
 " file current dir
 map <Leader>ff :CtrlP .<cr>
@@ -534,12 +522,6 @@ let g:webdevicons_enable_ctrlp = 1
 "-----------------------------------------------------------------------------
 " UltiSnips
 "-----------------------------------------------------------------------------
-"let g:UltiSnipsExpandTrigger = '<tab>'
-"let g:UltiSnipsJumpForwardTrigger = '<tab>'
-"let g:UltiSnipsJumpBackwardTrigger = '<S-tab>'
-" let g:UltiSnipsEditSplit="vertical"
-"let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
-
 let g:UltiSnipsListSnippets = '<F9>'
 
 function! g:UltiSnips_Complete()
@@ -730,8 +712,6 @@ let g:delimitMate_expand_space = 1
 let g:delimitMate_smart_quotes = 1
 let g:delimitMate_expand_inside_quotes = 0
 let g:delimitMate_smart_matchpairs = '^\%(\w\|\$\)'
-
-"imap <expr> <CR> pumvisible() ? "\<C-Y>" : "<Plug>delimitMateCR"
 
 
 "-----------------------------------------------------------------------------
