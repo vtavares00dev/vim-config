@@ -278,6 +278,10 @@ map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark")<CR>
 " turn of diff
 map <Leader>D :diffoff!<CR>
 
+"
+map <F3> :setlocal spell! spelllang=en_us<CR>
+imap <F3> <C-o>:setlocal spell! spelllang=en_ca<CR>
+
 " Keep search matches in the middle of the window.
 nnoremap n nzzzv
 nnoremap N Nzzzv
@@ -382,6 +386,8 @@ if &t_Co > 2 || has("gui_running")
   colorscheme solarized
   set guifont=Meslo\ LG\ M\ DZ\ Regular\ for\ Powerline\ Nerd\ Font\ Complete:h12
 endif
+hi clear SpellBad
+hi SpellBad cterm=underline ctermfg=red
 
 " Time out on key codes but not mappings.
 " Basically this makes terminal Vim work sanely.
@@ -435,9 +441,14 @@ let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
+let g:airline_symbols.crypt = '🔒'
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.maxlinenr = ''
+let g:airline_symbols.maxlinenr = '㏑'
+let g:airline_symbols.spell = 'Ꞩ'
+let g:airline_symbols.paste = 'Þ'
 
 " enable vim-devicons in vim-airline
 let g:webdevicons_enable_airline_tabline = 1
