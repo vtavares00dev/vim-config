@@ -238,7 +238,7 @@ noremap <C-S-Right> :tabn<CR>
 nmap <Leader>u <C-R>
 
 " Kill buffer
-nnoremap <Leader>K :bd<cr>
+nnoremap <Leader>, :bd<cr>
 
 " Close all but the current one
 nnoremap <Leader>. :only<CR>
@@ -515,8 +515,8 @@ let g:ctrlp_match_window = 'bottom,order:btt,max:10,results:10'
 let g:ctrlp_buftag_types = {'go' : '--language-force=go --golang-types=ftv'}
 
 " buffers
-nmap <Leader>, :CtrlPCurWD<cr>
-imap <Leader>,  <esc>:CtrlPCurWD<cr>
+"nmap <Leader> :CtrlPCurWD<cr>
+"imap <Leader>  <esc>:CtrlPCurWD<cr>
 
 map <Leader>fw :CtrlPBuffer<cr>
 " file current dir
