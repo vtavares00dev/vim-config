@@ -538,8 +538,9 @@ let g:webdevicons_enable_ctrlp = 1
 "let g:UltiSnipsJumpBackwardTrigger = '<S-tab>'
 " let g:UltiSnipsEditSplit="vertical"
 "let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
-"let g:UltiSnipsListSnippets = '<F9>'
-"
+
+let g:UltiSnipsListSnippets = '<F9>'
+
 function! g:UltiSnips_Complete()
   call UltiSnips#ExpandSnippet()
   if g:ulti_expand_res == 0
@@ -730,9 +731,6 @@ let g:delimitMate_expand_inside_quotes = 0
 let g:delimitMate_smart_matchpairs = '^\%(\w\|\$\)'
 
 "imap <expr> <CR> pumvisible() ? "\<C-Y>" : "<Plug>delimitMateCR"
-imap <expr> <CR> pumvisible()
-                 \ ? "\<C-Y>\<CR>"
-                 \ : '<Plug>delimitMateCR'
 
 
 "-----------------------------------------------------------------------------
