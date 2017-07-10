@@ -279,7 +279,7 @@ map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark")<CR>
 map <Leader>D :diffoff!<CR>
 
 "
-map <F3> :setlocal spell! spelllang=en_us<CR>
+map <F3> :setlocal spell! spelllang=en_ca<CR>
 imap <F3> <C-o>:setlocal spell! spelllang=en_ca<CR>
 
 " Keep search matches in the middle of the window.
