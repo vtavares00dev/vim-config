@@ -672,6 +672,7 @@ au FileType go nmap <Leader>gi <Plug>(go-info)
 au FileType go nmap <Leader>ge <Plug>(go-rename)
 au FileType go nmap <Leader>ga <Plug>(go-alternate-edit)
 au FileType go nmap <F5> :GoCoverageToggle -short<cr>
+au FileType go nmap <F6> :GoAlternate <cr>
 
 
 " create a go doc comment based on the word under the cursor
