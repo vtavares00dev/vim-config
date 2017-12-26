@@ -59,7 +59,8 @@ Plug 'plasticboy/vim-markdown'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdtree-git-plugin'
 Plug 'sebdah/vim-delve'
-Plug 'sjl/gundo.vim'
+"Plug 'sjl/gundo.vim'
+Plug 'mbbill/undotree'
 Plug 'sjl/vitality.vim'
 Plug 't9md/vim-choosewin'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
@@ -713,10 +714,9 @@ let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_toc_autofit = 1
 
 "-----------------------------------------------------------------------------
-" Gundo settings
+" Undotree settings
 "-----------------------------------------------------------------------------
-nnoremap <F4> :GundoToggle<CR>
-let g:gundo_preview_bottom=1
+nnoremap <F4> :UndotreeToggle<CR>
 
 "-----------------------------------------------------------------------------
 " delimitMate settings
