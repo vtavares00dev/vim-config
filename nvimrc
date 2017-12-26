@@ -59,7 +59,6 @@ Plug 'plasticboy/vim-markdown'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdtree-git-plugin'
 Plug 'sebdah/vim-delve'
-"Plug 'sjl/gundo.vim'
 Plug 'mbbill/undotree'
 Plug 'sjl/vitality.vim'
 Plug 't9md/vim-choosewin'
@@ -672,6 +671,7 @@ au FileType go nmap <Leader>gs <Plug>(go-implements)
 au FileType go nmap <Leader>gi <Plug>(go-info)
 au FileType go nmap <Leader>ge <Plug>(go-rename)
 au FileType go nmap <Leader>ga <Plug>(go-alternate-edit)
+au FileType go nmap <F1> :GoDoc<cr>
 au FileType go nmap <F5> :GoCoverageToggle -short<cr>
 au FileType go nmap <F6> :GoAlternate <cr>
 
