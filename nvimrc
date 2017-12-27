@@ -608,7 +608,7 @@ let g:go_auto_sameids = 1
 " don't use the default guru command for defs
 let g:go_def_mode = 'godef'
 " disable automatically show type info
-let g:go_auto_type_info = 0
+let g:go_auto_type_info = 1
 let g:go_def_mode = "guru"
 let g:go_echo_command_info = 1
 let g:go_gocode_autobuild = 0
