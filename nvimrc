@@ -41,12 +41,12 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 " My Plugins
 "------------------------------------------------------------
 " pre-dependencies
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tpope/vim-rhubarb'           " Depenency for tpope/fugitive
 Plug 'godlygeek/tabular'           " This must come before plasticboy/vim-markdown
 
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Raimondi/delimitMate'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'SirVer/ultisnips'
 Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
@@ -189,14 +189,14 @@ set undofile
 "============================================================
 " Neovim specific settings
 "============================================================
-if has('nvim')
+"if has('nvim')
     " Set the Python binaries neovim is using. Please note that you will need to
     " install the neovim package for these binaries separately like this for
     " example:
     " pip3 install -U neovim
-    let g:python_host_prog = '/usr/local/bin/python2.7'
-    let g:python3_host_prog = '/usr/local/bin/python3.6'
-endif
+"    let g:python_host_prog = '/usr/local/bin/python2.7'
+"    let g:python3_host_prog = '/usr/local/bin/python3.6'
+"endif
 
 "============================================================
 " FileTypes
@@ -687,10 +687,8 @@ au FileType go nmap <silent> <Leader>go :<C-u>call <SID>create_go_doc_comment()<
 "-----------------------------------------------------------------------------
 " deoplete settings
 "-----------------------------------------------------------------------------
-if has('nvim')
-    " Enable deoplete on startup
-    let g:deoplete#enable_at_startup = 1
-endif
+set runtimepath+=$XDG_CONFIG_HOME/nvim/plugged/deoplete.nvim
+let g:deoplete#enable_at_startup = 1
 
 "-----------------------------------------------------------------------------
 " deoplete-go settings
