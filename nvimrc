@@ -54,7 +54,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ervandew/supertab'
 Plug 'fatih/vim-go'
 Plug 'majutsushi/tagbar'
-Plug 'nsf/gocode', {'rtp': 'vim/'}
+Plug 'nsf/gocode', {'rtp': 'nvim/', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'plasticboy/vim-markdown'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdtree-git-plugin'
@@ -611,7 +611,7 @@ let g:go_def_mode = 'godef'
 let g:go_auto_type_info = 1
 let g:go_def_mode = "guru"
 let g:go_echo_command_info = 1
-let g:go_gocode_autobuild = 0
+let g:go_gocode_autobuild = 1
 let g:go_gocode_unimported_packages = 1
 let g:go_autodetect_gopath = 1
 let g:go_info_mode = "guru"
