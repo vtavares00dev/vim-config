@@ -153,6 +153,9 @@ set visualbell      " no sounds
 set incsearch       " do incremental searching
 set wrapscan        " set the search scan to wrap lines
 
+" remove the annoying scratch preview window on autocomplete
+set completeopt-=preview
+
 " make the 'cw' and like commands put a $ at the end instead
 " of just deleting the text and replacing it
 set cpoptions=ces$
