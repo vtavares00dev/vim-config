@@ -355,6 +355,10 @@ endfunc
 " map trailing whitespace deletion to <Leader>ws
 noremap <Leader>ws :call DeleteTrailingWS()<CR>
 
+" Clear all registers on startup
+command! WipeReg for i in range(34,122) | silent! call setreg(nr2char(i), '') | endfor
+autocmd VimEnter * WipeReg
+
 "============================================================
 " text replacements
 "============================================================
