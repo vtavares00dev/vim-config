@@ -68,6 +68,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'machakann/vim-highlightedyank'
 Plug 'vim-scripts/scratch.vim'
 Plug 'zchee/deoplete-go', { 'do': 'make'}
 
@@ -152,6 +153,10 @@ set noshowmode      " mode shown in airline status bar
 set visualbell      " no sounds
 set incsearch       " do incremental searching
 set wrapscan        " set the search scan to wrap lines
+
+" highlight substitutions
+set inccommand=nosplit
+let g:highlightedyank_highlight_duration = 250
 
 " remove the annoying scratch preview window on autocomplete
 set completeopt-=preview
