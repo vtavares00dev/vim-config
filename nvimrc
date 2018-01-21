@@ -486,7 +486,7 @@ nmap <Leader>Gh :.Gbrowse<CR>   "open in GitHub
 nmap <F7> :NERDTreeToggle<CR>
 
 " Find in NERD Tree with Shift-F7
-nmap <S-F7> :NERDTreeFind<CR>
+nmap <Leader><F7> :NERDTreeFind<CR>
 
 " move NERDTree window to the left
 let g:NERDTreeWinPos = "left"
