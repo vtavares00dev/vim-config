@@ -764,7 +764,7 @@ nnoremap <Leader><TAB> :ScratchToggle<cr>
 " Choosewin settings
 "-----------------------------------------------------------------------------
 nmap <F10> <Plug>(choosewin)
-nmap <S-F10> <plug>(choosewin-swap)
+nmap <Leader><F10> <plug>(choosewin-swap)
 let g:choosewin_overlay_enable=1
 let g:choosewin_return_on_single_win=1  " return immediately when only 1 win
 
