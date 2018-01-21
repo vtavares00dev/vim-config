@@ -345,6 +345,10 @@ augroup gitCommitEditMsg
     \ endif
 augroup END
 
+" remove fugitive git buffers from list to keep it clean
+" http://vimcasts.org/episodes/fugitive-vim-browsing-the-git-object-database/
+autocmd BufReadPost fugitive://* set bufhidden=delete
+
 
 " remove trailing whitespace in whole file
 func! DeleteTrailingWS()
